@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,12 +211,10 @@
             const summaryQuantity = document.getElementById('summaryQuantity');
             const summaryDate = document.getElementById('summaryDate');
 
-            searchInput.addEventListener('input', () => {
-                filterCustomers();
-            });
-
+            // Load customers from local storage
             let customers = JSON.parse(localStorage.getItem('customers')) || [];
 
+            // Render the customer table
             function renderTable(filteredCustomers) {
                 customerTableBody.innerHTML = '';
                 const dataToRender = filteredCustomers || customers;
@@ -243,6 +238,7 @@
                 });
             }
 
+            // Filter customers based on search input
             function filterCustomers() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const filteredCustomers = searchTerm 
@@ -260,6 +256,7 @@
                 });
             }
 
+            // Handle form submission
             customerForm.addEventListener('submit', (e) => {
                 e.preventDefault();
 
@@ -289,7 +286,13 @@
                     alert('Product updated successfully!');
                 }
 
+                // Debugging: Log the customers array before saving
+                console.log('Saving customers:', customers);
                 localStorage.setItem('customers', JSON.stringify(customers));
+                
+                // Debugging: Check if data is saved
+                console.log('Local Storage:', localStorage.getItem('customers'));
+
                 customerForm.reset();
                 productIdInput.value = '';
 
@@ -304,6 +307,7 @@
                 renderTable();
             });
 
+            // Edit customer function
             window.editCustomer = (index) => {
                 const customer = customers[index];
                 productIdInput.value = index;
@@ -314,6 +318,7 @@
                 transactionDateInput.value = customer.transactionDate; // Set the date
             };
 
+            // Delete customer function
             window.deleteCustomer = (index) => {
                 if (confirm('Are you sure you want to delete this entry?')) {
                     customers.splice(index, 1);
@@ -323,10 +328,9 @@
                 }
             };
 
+            // Initial render of the table
             renderTable();
         });
     </script>
 </body>
 </html>
-
-
