@@ -256,6 +256,9 @@
                 });
             }
 
+            // Add event listener for search input
+            searchInput.addEventListener('input', filterCustomers);
+
             // Handle form submission
             customerForm.addEventListener('submit', (e) => {
                 e.preventDefault();
